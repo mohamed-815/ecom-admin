@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "641603506740",
+    "project_id": "orands-fish-booking",
+    "storage_bucket": "orands-fish-booking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641603506740:android:4bb36d53b42922e406b061",
+        "android_client_info": {
+          "package_name": "com.admin.adminside"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641603506740-e0bd3l6r1nat9ko6kttso52c6aaphfga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDbBuvXt_ihx3po-XKFKJtYZuJmycrV5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641603506740-e0bd3l6r1nat9ko6kttso52c6aaphfga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641603506740:android:2445bb81db549e0706b061",
+        "android_client_info": {
+          "package_name": "com.booking.orands_fish_booking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641603506740-e0bd3l6r1nat9ko6kttso52c6aaphfga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDbBuvXt_ihx3po-XKFKJtYZuJmycrV5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641603506740-e0bd3l6r1nat9ko6kttso52c6aaphfga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
