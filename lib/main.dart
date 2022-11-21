@@ -1,6 +1,7 @@
-import 'package:adminside/category/categorylist.dart';
-import 'package:adminside/user/prodectside/productadding.dart';
-import 'package:adminside/user/user.dart';
+import 'package:adminside/presentation/category/categorylist.dart';
+import 'package:adminside/presentation/order.dart';
+import 'package:adminside/presentation/prodectside/productadding.dart';
+import 'package:adminside/presentation/user/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,61 +48,85 @@ class HomePage extends StatelessWidget {
           title: Center(child: Text('HOME')),
         ),
         body: SafeArea(
-          child: Column(
+          child: ListView(
             children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () =>
+              GestureDetector(
+                onTap: () =>
 
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //   builder: (context) => AddingScrean(false, null, -1),
-                      // ))
-                      Get.to(() => Userside()),
-                  child: Container(
-                      margin: EdgeInsets.all(30),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          color: Color.fromARGB(255, 136, 133, 136)),
-                      child: Center(
-                          child: Text(
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                fontFamily: 'Raleway',
-                                color: Color.fromARGB(255, 75, 17, 85),
-                              ),
-                              'Users'))),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () =>
-
-                      //  Navigator.of(context).push(
-                      //     MaterialPageRoute(builder: (context) => ListOfAdded()))
-                      Get.to(() => CategoryList()),
-                  child: Container(
-                      margin: EdgeInsets.all(30),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //   builder: (context) => AddingScrean(false, null, -1),
+                    // ))
+                    Get.to(() => Userside()),
+                child: Container(
+                    height: 200,
+                    margin: EdgeInsets.all(30),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(20),
                         ),
-                        color: Color.fromARGB(255, 136, 133, 136),
+                        color: Color.fromARGB(255, 136, 133, 136)),
+                    child: Center(
+                        child: Text(
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              fontFamily: 'Raleway',
+                              color: Color.fromARGB(255, 75, 17, 85),
+                            ),
+                            'Users'))),
+              ),
+              GestureDetector(
+                onTap: () =>
+
+                    //  Navigator.of(context).push(
+                    //     MaterialPageRoute(builder: (context) => ListOfAdded()))
+                    Get.to(() => CategoryList()),
+                child: Container(
+                    height: 200,
+                    margin: EdgeInsets.all(30),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
                       ),
-                      child: Center(
-                          child: Text(
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                fontFamily: "Font1",
-                                color: Color.fromARGB(255, 75, 17, 85),
-                              ),
-                              'Product side'))),
-                ),
+                      color: Color.fromARGB(255, 136, 133, 136),
+                    ),
+                    child: Center(
+                        child: Text(
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              fontFamily: "Font1",
+                              color: Color.fromARGB(255, 75, 17, 85),
+                            ),
+                            'Product side'))),
+              ),
+              GestureDetector(
+                onTap: () =>
+
+                    //  Navigator.of(context).push(
+                    //     MaterialPageRoute(builder: (context) => ListOfAdded()))
+                    Get.to(() => Order()),
+                child: Container(
+                    height: 200,
+                    margin: EdgeInsets.all(30),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      color: Color.fromARGB(255, 136, 133, 136),
+                    ),
+                    child: Center(
+                        child: Text(
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              fontFamily: "Font1",
+                              color: Color.fromARGB(255, 75, 17, 85),
+                            ),
+                            'Order List'))),
               )
             ],
           ),

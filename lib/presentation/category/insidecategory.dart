@@ -1,5 +1,5 @@
-import 'package:adminside/user/prodectside/modelclass.dart';
-import 'package:adminside/user/prodectside/productadding.dart';
+import 'package:adminside/presentation/prodectside/modelclass.dart';
+import 'package:adminside/presentation/prodectside/productadding.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -88,6 +88,7 @@ class MyWidget extends StatelessWidget {
                 onTap: () async {
                   await tapeToedit(id);
                   Get.to(() => AddProduct(
+                        id: id,
                         editproduct: editproduct,
                       ));
                 },
@@ -123,11 +124,11 @@ class MyWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     image: DecorationImage(
-                      image: NetworkImage(item.imagelist?[0].toString() == null
+                      image: NetworkImage(item.imagelist!.isEmpty
                           //     ||
                           // item.imagelist![1].toString() == null
                           ? 'https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg'
-                          : item.imagelist![1].toString()),
+                          : item.imagelist![0].toString()),
                     ),
                   ),
                 )
@@ -252,10 +253,6 @@ class MyWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<void> tapeToDelete(id) {
-  return FirebaseFirestore.instance.collection('category').doc(id).delete();
 }
 
 Future<ModelProduct> tapeToedit(id) async {

@@ -1,6 +1,6 @@
-import 'package:adminside/category/insidecategory.dart';
+import 'package:adminside/presentation/category/insidecategory.dart';
 
-import 'package:adminside/user/prodectside/productadding.dart';
+import 'package:adminside/presentation/prodectside/productadding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';

@@ -58,7 +58,7 @@ class ModelProduct {
   String price;
   String minno;
   String description;
-  List<dynamic>? imagelist;
+  List<dynamic>? imagelist = [];
 
   ModelProduct({
     this.imagelist,
