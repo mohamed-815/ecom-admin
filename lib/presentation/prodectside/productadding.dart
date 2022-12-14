@@ -1,8 +1,9 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:adminside/presentation/prodectside/modelclass.dart';
+import 'package:adminside/modelclass/modelclass.dart';
 import 'package:adminside/controller/productsidecontroller.dart';
+import 'package:adminside/widjets/radiobutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,9 @@ class AddProduct extends StatelessWidget {
                     height: 20,
                   ),
                   DropdownButtonFormField(
+                    hint: id == null
+                        ? Text('Category')
+                        : Text(c.dropcategoryname1.value),
                     focusNode: categoryfocus,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -111,11 +115,11 @@ class AddProduct extends StatelessWidget {
                       c.onchangeCategory(newValue);
                     },
                     items: <String>[
-                      'Feeds',
-                      'Aquarium',
-                      'Edible Seeds',
-                      'Birds',
-                      'Accessories',
+                      'feeds',
+                      'aquarium',
+                      'edibleseeds',
+                      'birds',
+                      'accessories',
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -132,12 +136,14 @@ class AddProduct extends StatelessWidget {
                   TextField1(
                       focusnode2: pricefocus,
                       focusnode: namefocus,
-                      hint: 'Name of the Product',
+                      hint: id == null ? 'Name of the Product' : c.name1.value,
                       controller: c.textEditingControllername.value),
                   const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
+                    hint:
+                        id == null ? Text('size') : Text(c.dropsizename1.value),
                     focusNode: sizefocus,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -157,9 +163,9 @@ class AddProduct extends StatelessWidget {
                       c.onchange(newValue);
                     },
                     items: <String>[
-                      'Small',
-                      'Medium',
-                      'Large',
+                      'small',
+                      'medium',
+                      'large',
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -179,7 +185,8 @@ class AddProduct extends StatelessWidget {
                       TextField1(
                           focusnode2: minpurchasefocus,
                           focusnode: pricefocus,
-                          hint: 'Price',
+                          hint:
+                              id == null ? 'Price' : c.price1.value.toString(),
                           keybord: TextInputType.number,
                           controller: c.textEditingControllerprice.value),
                     ],
@@ -190,14 +197,16 @@ class AddProduct extends StatelessWidget {
                   TextField1(
                       focusnode2: describefocus,
                       focusnode: minpurchasefocus,
-                      hint: 'Min No Of Purchase',
+                      hint: id == null
+                          ? 'Min No Of Purchase'
+                          : c.minno1.value.toString(),
                       controller: c.textEditingControllerminno.value),
                   const SizedBox(
                     height: 20,
                   ),
                   TextField1(
                     focusnode: describefocus,
-                    hint: 'Description',
+                    hint: id == null ? 'Description' : c.describe1.value,
                     lines: 5,
                     controller: c.textEditingControllerdescribe.value,
                   ),
@@ -206,6 +215,31 @@ class AddProduct extends StatelessWidget {
                   ),
                   const SizedBox(
                     height: 20,
+                  ),
+                  Card(
+                    color: Colors.white.withOpacity(.1),
+                    child: ListTile(
+                      title: OfeerText(name: 'No Offer'),
+                      trailing: radioButton(
+                          value: 1,
+                          onChange: (value) {
+                            c.offerChanging(value);
+                          }),
+                    ),
+                  ),
+                  Card(
+                    color: Colors.white.withOpacity(.1),
+                    child: ListTile(
+                      title: OfeerText(name: 'Put In Offer'),
+                      trailing: radioButton(
+                          value: 2,
+                          onChange: (value) {
+                            c.offerChanging(value);
+                          }),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 20, bottom: 20),
@@ -328,6 +362,23 @@ class AddProduct extends StatelessWidget {
   }
 }
 
+class OfeerText extends StatelessWidget {
+  OfeerText({
+    required this.name,
+    Key? key,
+  }) : super(key: key);
+
+  String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      name,
+      style: TextStyle(color: Colors.white),
+    );
+  }
+}
+
 class TextField1 extends StatefulWidget {
   TextField1(
       {this.focusnode2,
@@ -404,8 +455,13 @@ class _TextField1State extends State<TextField1> {
 // }) {}
 
 addNewiintofireBase(ModelProduct productdetail) async {
-  final addingtofirebase =
-      FirebaseFirestore.instance.collection('category').doc();
+  final addingtofirebase = FirebaseFirestore.instance
+      .collection('collection')
+      .doc('category1')
+      .collection(productdetail.category)
+      .doc('itemsize')
+      .collection(productdetail.size)
+      .doc();
   productdetail.id = addingtofirebase.id;
   final json = productdetail.toJson();
   await addingtofirebase.set(json);
@@ -419,48 +475,45 @@ addNewiintofireBase(ModelProduct productdetail) async {
 
 addingEditedThings(String id, ModelProduct productdetail) async {
   print(id);
-  // var a = await FirebaseFirestore.instance
-  //     .collection("category")
-  //     .doc(id)
-  //     .get();
+  var a = await FirebaseFirestore.instance.collection("category").doc(id).get();
 
-  //         productdetail.id = a.id;
-  //   // await collection.delete();
-  //   final json = productdetail.toJson();
-  // if (a.exists) {
-  //   final DocumentReference documentReference = FirebaseFirestore.instance
-  //       .collection("category")
-  //       .doc("id");
-  //   return await documentReference.update(
-  //     json
-
-  //   );
-  // } else {
-  //   final DocumentReference documentReference = FirebaseFirestore.instance
-  //       .collection("category")
-  //       .doc(id);
-  //   return await documentReference.set(
-  //    json
-  //   );
-
-  final collection = FirebaseFirestore.instance.collection('category').doc(id);
-
-  productdetail.id = collection.id;
+  productdetail.id = a.id;
   // await collection.delete();
-  final json = productdetail.toJson();
-  print('this is jason new');
-
-  await collection.update(json).whenComplete(() => print(' updated'));
-  print(json);
-
-  if (pa.imagelist != null) {
-    pa.imagelist!.clear();
+  Map<String, dynamic> json = productdetail.toJson();
+  if (a.exists) {
+    final DocumentReference documentReference =
+        FirebaseFirestore.instance.collection("category").doc(id);
+    return await documentReference.update(json);
+  } else {
+    final DocumentReference documentReference =
+        FirebaseFirestore.instance.collection("category").doc(id);
+    return await documentReference.set(json);
   }
-  if (pa.imagePath != '') {
-    pa.imagePath!.value = '';
-  }
+  // final collection = FirebaseFirestore.instance.collection('category').doc(id);
+
+  // productdetail.id = collection.id;
+  // // await collection.delete();
+  // final json = productdetail.toJson();
+  // print('this is jason new');
+
+  // await collection.update(json).whenComplete(() => print(' updated'));
+  // print(json);
+
+  // if (pa.imagelist != null) {
+  //   pa.imagelist!.clear();
+  // }
+  // if (pa.imagePath != '') {
+  //   pa.imagePath!.value = '';
+  // }
 }
 
 Future<void> tapeToDelete(id) {
-  return FirebaseFirestore.instance.collection('category').doc(id).delete();
+  return FirebaseFirestore.instance
+      .collection('collection')
+      .doc('category1')
+      .collection('accessories')
+      .doc('itemsize')
+      .collection('large')
+      .doc(id)
+      .delete();
 }

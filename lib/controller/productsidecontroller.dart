@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:adminside/presentation/prodectside/modelclass.dart';
+import 'package:adminside/modelclass/modelclass.dart';
 import 'package:adminside/presentation/prodectside/productadding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
@@ -11,6 +11,13 @@ import 'package:get/state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProductAddingController extends GetxController {
+  RxInt basevaleu = 1.obs;
+
+  offerChanging(value) {
+    basevaleu.value = value;
+  }
+
+  UploadTask? task;
   Rx<TextEditingController> textEditingControllername =
       TextEditingController().obs;
   Rx<TextEditingController> textEditingControllerprice =
@@ -21,18 +28,26 @@ class ProductAddingController extends GetxController {
       TextEditingController().obs;
   Rx<TextEditingController> textEditingController4 =
       TextEditingController().obs;
-  UploadTask? task;
+
+  RxString name1 = ''.obs;
+  RxString price1 = ''.obs;
+  RxString minno1 = ''.obs;
+  RxString describe1 = ''.obs;
+  RxString dropsizename1 = ''.obs;
+  RxString dropcategoryname1 = ''.obs;
+
+  editPage(ModelProduct? editproduct) {
+    name1.value = editproduct!.name;
+    price1.value = editproduct.price.toString();
+    describe1.value = editproduct.description;
+    minno1.value = editproduct.minno.toString();
+
+    dropsizename1.value = editproduct.size;
+    dropcategoryname1.value = editproduct.category;
+  }
+
   //   image.obs;
   //
-  editPage(ModelProduct? editproduct) {
-    textEditingControllername.value.text = editproduct!.name;
-    textEditingControllerprice.value.text = editproduct.price;
-    textEditingControllerdescribe.value.text = editproduct.description;
-    textEditingControllerminno.value.text = editproduct.minno;
-
-    dropdownvaleu.value = editproduct.size;
-    dropcategory.value = editproduct.category;
-  }
 
   productAndEdit({required id}) async {
     if (textEditingControllername.value.text.isNotEmpty &&
@@ -46,8 +61,8 @@ class ProductAddingController extends GetxController {
         description: textEditingControllerdescribe.value.text,
         name: textEditingControllername.value.text,
         category: dropcategory.value,
-        minno: textEditingControllerminno.value.text,
-        price: textEditingControllerprice.value.text,
+        minno: double.parse(textEditingControllerminno.value.text),
+        price: double.parse(textEditingControllerprice.value.text),
         size: dropdownvaleu.value,
       );
 
@@ -92,8 +107,8 @@ class ProductAddingController extends GetxController {
   List<dynamic>? imagelist = [];
   // late Rx<XFile?> image;
   // var image = Rxn<XFile>();
-  var dropdownvaleu = 'Small'.obs;
-  var dropcategory = 'Feeds'.obs;
+  var dropdownvaleu = 'small'.obs;
+  var dropcategory = 'feeds'.obs;
   onchange(valeu) {
     dropdownvaleu.value = valeu;
     //  update();

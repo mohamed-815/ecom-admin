@@ -55,8 +55,8 @@ class ModelProduct {
   String category;
   String name;
   String size;
-  String price;
-  String minno;
+  double price;
+  double minno;
   String description;
   List<dynamic>? imagelist = [];
 
@@ -101,8 +101,14 @@ class ModelProduct {
 }
 
 Stream<List<ModelProduct>> showTheList() {
-  return FirebaseFirestore.instance.collection('category').snapshots().map(
-      (snapshot) => snapshot.docs
+  return FirebaseFirestore.instance
+      .collection('collection')
+      .doc('category1')
+      .collection('accessories')
+      .doc('itemsize')
+      .collection('large')
+      .snapshots()
+      .map((snapshot) => snapshot.docs
           .map((doc) => ModelProduct.fromJson(doc.data()))
           .toList());
 }

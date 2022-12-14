@@ -1,4 +1,4 @@
-import 'package:adminside/presentation/prodectside/modelclass.dart';
+import 'package:adminside/modelclass/modelclass.dart';
 import 'package:adminside/presentation/prodectside/productadding.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -184,7 +184,7 @@ class MyWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          item.price,
+                          item.price.toString(),
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold),
                         ),
@@ -215,7 +215,7 @@ class MyWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          item.minno,
+                          item.minno.toString(),
                           style: TextStyle(
                             fontSize: 15,
                           ),
@@ -265,4 +265,4 @@ Future<ModelProduct> tapeToedit(id) async {
 }
 
 ModelProduct editproduct = ModelProduct(
-    description: '', name: '', category: '', minno: '', price: '', size: '');
+    description: '', name: '', category: '', minno: 0.0, price: 0.0, size: '');
