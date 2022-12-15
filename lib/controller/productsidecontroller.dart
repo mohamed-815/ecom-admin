@@ -11,7 +11,7 @@ import 'package:get/state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProductAddingController extends GetxController {
-  RxInt basevaleu = 1.obs;
+  RxString basevaleu = 'nooffer'.obs;
 
   offerChanging(value) {
     basevaleu.value = value;
@@ -57,6 +57,7 @@ class ProductAddingController extends GetxController {
         textEditingControllerdescribe.value.text.isNotEmpty &&
         textEditingControllerminno.value.text.isNotEmpty) {
       final productdetailnew = ModelProduct(
+        offer: basevaleu.value,
         imagelist: imagelist,
         description: textEditingControllerdescribe.value.text,
         name: textEditingControllername.value.text,

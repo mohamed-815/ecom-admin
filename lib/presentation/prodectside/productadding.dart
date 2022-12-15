@@ -221,7 +221,7 @@ class AddProduct extends StatelessWidget {
                     child: ListTile(
                       title: OfeerText(name: 'No Offer'),
                       trailing: radioButton(
-                          value: 1,
+                          value: 'nooffer',
                           onChange: (value) {
                             c.offerChanging(value);
                           }),
@@ -232,7 +232,7 @@ class AddProduct extends StatelessWidget {
                     child: ListTile(
                       title: OfeerText(name: 'Put In Offer'),
                       trailing: radioButton(
-                          value: 2,
+                          value: 'putinoffer',
                           onChange: (value) {
                             c.offerChanging(value);
                           }),
@@ -458,8 +458,10 @@ addNewiintofireBase(ModelProduct productdetail) async {
   final addingtofirebase = FirebaseFirestore.instance
       .collection('collection')
       .doc('category1')
-      .collection(productdetail.category)
-      .doc('itemsize')
+      .collection('category1')
+      .doc(productdetail.category)
+      .collection('itemsize')
+      .doc(productdetail.size)
       .collection(productdetail.size)
       .doc();
   productdetail.id = addingtofirebase.id;

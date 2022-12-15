@@ -127,6 +127,32 @@ class HomePage extends StatelessWidget {
                               color: Color.fromARGB(255, 75, 17, 85),
                             ),
                             'Order List'))),
+              ),
+              GestureDetector(
+                // onTap: () =>
+
+                //  Navigator.of(context).push(
+                //     MaterialPageRoute(builder: (context) => ListOfAdded()))
+                //   Get.to(() => Order()),
+                child: Container(
+                    height: 200,
+                    margin: EdgeInsets.all(30),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      color: Color.fromARGB(255, 136, 133, 136),
+                    ),
+                    child: Center(
+                        child: Text(
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              fontFamily: "Font1",
+                              color: Color.fromARGB(255, 75, 17, 85),
+                            ),
+                            'Offers'))),
               )
             ],
           ),

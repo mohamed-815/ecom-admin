@@ -8,8 +8,8 @@ class radioButton extends StatelessWidget {
     required this.value,
     required this.onChange,
   }) : super(key: key);
-  int value;
-  void Function(int?)? onChange;
+  String value;
+  void Function(String?)? onChange;
   @override
   Widget build(BuildContext context) {
     return GetX<ProductAddingController>(

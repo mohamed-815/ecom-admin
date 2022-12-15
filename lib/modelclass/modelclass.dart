@@ -2,55 +2,9 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Model {
-  String image;
-  String price;
-  String minno;
-  String description;
-  String size;
-  String itemname;
-  Model(
-      {required this.description,
-      required this.image,
-      required this.minno,
-      required this.price,
-      required this.size,
-      required this.itemname});
-}
-
-final products = [
-  Model(
-      description: 'this is good product',
-      image: 'assets/goldfish-6029906__480.jpg',
-      minno: '100pc',
-      price: '10',
-      size: 'medium',
-      itemname: 'goldfish'),
-  Model(
-      description: 'this is good product',
-      image: 'assets/download.jpeg',
-      minno: '100',
-      price: '10',
-      size: 'medium',
-      itemname: 'GoldenBleu'),
-  Model(
-      description: 'this is good product',
-      image: 'assets/download.jpeg',
-      minno: '100',
-      price: '10',
-      size: 'medium',
-      itemname: 'Goldenyellow'),
-  Model(
-      description: 'this is good product',
-      image: 'assets/images (1).jpeg',
-      minno: '100',
-      price: '10',
-      size: 'medium',
-      itemname: 'Goldenwhite')
-];
-
 class ModelProduct {
   // String image;
+  String offer;
   String id;
   String category;
   String name;
@@ -61,6 +15,7 @@ class ModelProduct {
   List<dynamic>? imagelist = [];
 
   ModelProduct({
+    required this.offer,
     this.imagelist,
     // required this.imagelist,
     this.id = '',
@@ -75,6 +30,7 @@ class ModelProduct {
 
   Map<String, dynamic> toJson() {
     return {
+      'offer': offer,
       'id': id,
       'category': category,
       'name': name,
@@ -88,6 +44,7 @@ class ModelProduct {
 
   static ModelProduct fromJson(Map<String, dynamic> json) {
     return ModelProduct(
+      offer: json['offer'],
       id: json['id'],
       description: json['description'],
       name: json['name'],

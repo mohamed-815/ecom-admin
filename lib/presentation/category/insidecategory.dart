@@ -264,5 +264,5 @@ Future<ModelProduct> tapeToedit(id) async {
   return editproduct = ModelProduct.fromJson(snapshot.data()!);
 }
 
-ModelProduct editproduct = ModelProduct(
+ModelProduct editproduct = ModelProduct(offer: '',
     description: '', name: '', category: '', minno: 0.0, price: 0.0, size: '');
