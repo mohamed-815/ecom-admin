@@ -1,9 +1,11 @@
-import 'package:adminside/presentation/category/categorylist.dart';
-import 'package:adminside/presentation/order.dart';
-import 'package:adminside/presentation/prodectside/productadding.dart';
-import 'package:adminside/presentation/user/user.dart';
+import 'package:adminside/app_module/presentation/category/categorylist.dart';
+import 'package:adminside/app_module/presentation/user/order.dart';
+import 'package:adminside/app_module/presentation/prodectside/productadding.dart';
+import 'package:adminside/app_module/presentation/user/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 void main() async {
@@ -18,22 +20,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        builder: (context, child) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              // This is the theme of your application.
+              //
+              // Try running your application with "flutter run". You'll see the
+              // application has a blue toolbar. Then, without quitting the app, try
+              // changing the primarySwatch below to Colors.green and then invoke
+              // "hot reload" (press "r" in the console where you ran "flutter run",
+              // or simply save your changes to "hot reload" in a Flutter IDE).
+              // Notice that the counter didn't reset back to zero; the application
+              // is not restarted.
+              primarySwatch: Colors.blue,
+            ),
+            home: const HomePage(),
+          );
+        });
   }
 }
 
@@ -81,7 +88,16 @@ class HomePage extends StatelessWidget {
 
                     //  Navigator.of(context).push(
                     //     MaterialPageRoute(builder: (context) => ListOfAdded()))
-                    Get.to(() => CategoryList()),
+                    Get.to(() => CategoryList(
+                          isactuallyinoffer: 'i',
+                          streamallthing: //  FirebaseFirestore.instance
+                              FirebaseFirestore.instance
+                                  .collection('collection')
+                                  .doc('category1')
+                                  .collection('category1')
+                                  .snapshots(),
+                          offer: false,
+                        )),
                 child: Container(
                     height: 200,
                     margin: EdgeInsets.all(30),
@@ -129,11 +145,16 @@ class HomePage extends StatelessWidget {
                             'Order List'))),
               ),
               GestureDetector(
-                // onTap: () =>
-
-                //  Navigator.of(context).push(
-                //     MaterialPageRoute(builder: (context) => ListOfAdded()))
-                //   Get.to(() => Order()),
+                onTap: () => Get.to(() => CategoryList(
+                      isactuallyinoffer: 'inoffer',
+                      streamallthing: //  FirebaseFirestore.instance
+                          FirebaseFirestore.instance
+                              .collection('collection')
+                              .doc('category1')
+                              .collection('category1')
+                              .snapshots(),
+                      offer: true,
+                    )),
                 child: Container(
                     height: 200,
                     margin: EdgeInsets.all(30),

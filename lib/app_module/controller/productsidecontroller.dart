@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:adminside/modelclass/modelclass.dart';
-import 'package:adminside/presentation/prodectside/productadding.dart';
+import 'dart:math';
+import 'package:adminside/app_module/modelclass/modelclass.dart';
+import 'package:adminside/app_module/presentation/prodectside/productadding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 
@@ -29,33 +30,35 @@ class ProductAddingController extends GetxController {
   Rx<TextEditingController> textEditingController4 =
       TextEditingController().obs;
 
-  RxString name1 = ''.obs;
-  RxString price1 = ''.obs;
-  RxString minno1 = ''.obs;
-  RxString describe1 = ''.obs;
+  RxString name1 = 'Enter name'.obs;
+  RxString price1 = 'Enter the price'.obs;
+  RxString minno1 = 'Enter the quantity'.obs;
+  RxString describe1 = 'Enter the description'.obs;
   RxString dropsizename1 = ''.obs;
   RxString dropcategoryname1 = ''.obs;
 
   editPage(ModelProduct? editproduct) {
-    name1.value = editproduct!.name;
+    print(editproduct.toString());
+    name1.value = editproduct!.name.toString();
     price1.value = editproduct.price.toString();
-    describe1.value = editproduct.description;
+    describe1.value = editproduct.description.toString();
     minno1.value = editproduct.minno.toString();
 
-    dropsizename1.value = editproduct.size;
-    dropcategoryname1.value = editproduct.category;
+    dropsizename1.value = editproduct.size.toString();
+    dropcategoryname1.value = editproduct.category.toString();
   }
 
   //   image.obs;
   //
 
-  productAndEdit({required id}) async {
+  productadd() async {
     if (textEditingControllername.value.text.isNotEmpty &&
         dropcategory.isNotEmpty &&
         dropdownvaleu.isNotEmpty &&
         textEditingControllerprice.value.text.isNotEmpty &&
         textEditingControllerdescribe.value.text.isNotEmpty &&
-        textEditingControllerminno.value.text.isNotEmpty) {
+        textEditingControllerminno.value.text.isNotEmpty &&
+        imagelist!.isNotEmpty) {
       final productdetailnew = ModelProduct(
         offer: basevaleu.value,
         imagelist: imagelist,
@@ -66,16 +69,73 @@ class ProductAddingController extends GetxController {
         price: double.parse(textEditingControllerprice.value.text),
         size: dropdownvaleu.value,
       );
+      await addNewiintofireBase(productdetailnew)
+          .whenComplete(() => print('zzzzzzzzzzzzz'));
+      Get.back();
+      Get.snackbar(
+        'AddingDetail',
+        'message',
+        titleText: Text('Adding detail'),
+        messageText: Text('Added Succesfull'),
+      );
 
-      if (id == null) {
-        addNewiintofireBase(productdetailnew);
-        Get.back();
-      } else {
-        print(productdetailnew.toJson());
-        addingEditedThings(id, productdetailnew);
-        Get.back();
-      }
       clearController();
+    } else {
+      Get.snackbar(
+        'AddingDetail',
+        'message',
+        titleText: Text('Adding detail'),
+        messageText: Text('Please fill it'),
+      );
+    }
+  }
+
+  productEdit(
+      {required id,
+      required category,
+      required size,
+      required String offer}) async {
+    if (textEditingControllername.value.text.isNotEmpty &&
+        textEditingControllerprice.value.text.isNotEmpty &&
+        textEditingControllerdescribe.value.text.isNotEmpty &&
+        textEditingControllerminno.value.text.isNotEmpty &&
+        imagelist!.isNotEmpty) {
+      final productdetailnew = ModelProduct(
+        offer: basevaleu.value,
+        imagelist: imagelist,
+        description: textEditingControllerdescribe.value.text,
+        name: textEditingControllername.value.text,
+        category: category,
+        minno: double.parse(textEditingControllerminno.value.text),
+        price: double.parse(textEditingControllerprice.value.text),
+        size: size,
+      );
+
+      print('ooooooo: ${productdetailnew.toJson()}');
+
+      if (offer != 'inoffer') {
+        await addingEditedThings(id, productdetailnew)
+            .whenComplete(() => print('oooooooooooooooooooooooooo'));
+        Get.back();
+        Get.snackbar(
+          'AddingDetail',
+          'message',
+          titleText: Text('Adding detail'),
+          messageText: Text('Successfully Edited'),
+        );
+        clearController();
+      } else {
+        await addingEditedThingsoffer(id, productdetailnew)
+            .whenComplete(() => print('oooooooooooooooooooooooooo'));
+        Get.back();
+        Get.snackbar(
+          'AddingDetail',
+          'message',
+          titleText: Text('Adding detail'),
+          messageText: Text('Successfully Edited'),
+        );
+        clearController();
+      }
     } else {
       Get.snackbar(
         'AddingDetail',

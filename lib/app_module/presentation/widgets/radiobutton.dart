@@ -1,4 +1,4 @@
-import 'package:adminside/controller/productsidecontroller.dart';
+import 'package:adminside/app_module/controller/productsidecontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

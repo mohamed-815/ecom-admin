@@ -56,16 +56,3 @@ class ModelProduct {
     );
   }
 }
-
-Stream<List<ModelProduct>> showTheList() {
-  return FirebaseFirestore.instance
-      .collection('collection')
-      .doc('category1')
-      .collection('accessories')
-      .doc('itemsize')
-      .collection('large')
-      .snapshots()
-      .map((snapshot) => snapshot.docs
-          .map((doc) => ModelProduct.fromJson(doc.data()))
-          .toList());
-}
